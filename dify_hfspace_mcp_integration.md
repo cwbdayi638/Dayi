@@ -84,3 +84,16 @@
 ## 結語
 
 透過在 Hugging Face Space 部署 Gradio MCP 伺服器並在 Dify 中註冊，即可在工作流或代理人中使用自定義函式。這種整合方式不僅讓開發者擴充 Dify 工具庫，也讓 Hugging Face 的模型與程式能被自然語言代理人所調用。只需準備好 Space 程式碼、取得 MCP 伺服器 URL，並在 Dify 中完成設定，即可享受跨平台的協作與擴展能力。
+
+## 進階：與 Gemini 模型結合
+
+若希望透過 Google 的 Gemini 模型在本地端直接呼叫 Gradio MCP 工具，可以撰寫一個轉接程式將兩者串接起來。`mcp_gemini_demo.py` 為一個完整範例，它使用 `google-generativeai` 初始化 Gemini API，透過 `gradio_client` 呼叫部署於 Hugging Face Spaces 的 MCP 伺服器，再將結果回傳給模型。
+
+重點步驟如下：
+
+1. 先安裝必要套件並設定 `GOOGLE_API_KEY` 環境變數。
+2. 使用 `gradio_client.Client(src=MCP_SERVER_URL)` 連線遠端 Gradio 應用，並呼叫 `predict(word, letter)` 執行 `letter_counter` 工具。
+3. 將此函式包裝成 Gemini 的工具宣告，建立 `GenerativeModel` 時透過 `tools=[…]` 傳入。
+4. 在對話過程中偵測 Gemini 是否要求呼叫此工具，若是則執行函式並把結果回傳給模型，讓它生成最終自然語言回覆。
+
+完整程式碼請參考倉庫中的 [`mcp_gemini_demo.py`](./mcp_gemini_demo.py)。
