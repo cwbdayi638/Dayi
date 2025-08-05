@@ -1,0 +1,215 @@
+app:
+  description: ''
+  icon: 🤖
+  icon_background: '#FFEAD5'
+  mode: workflow
+  name: workflow-1
+  use_icon_as_answer_icon: false
+dependencies: []
+kind: app
+version: 0.3.1
+workflow:
+  conversation_variables: []
+  environment_variables: []
+  features:
+    file_upload:
+      allowed_file_extensions:
+      - .JPG
+      - .JPEG
+      - .PNG
+      - .GIF
+      - .WEBP
+      - .SVG
+      allowed_file_types:
+      - image
+      allowed_file_upload_methods:
+      - local_file
+      - remote_url
+      enabled: false
+      image:
+        enabled: false
+        number_limits: 3
+        transfer_methods:
+        - local_file
+        - remote_url
+      number_limits: 3
+    opening_statement: ''
+    retriever_resource:
+      enabled: true
+    sensitive_word_avoidance:
+      enabled: false
+    speech_to_text:
+      enabled: false
+    suggested_questions: []
+    suggested_questions_after_answer:
+      enabled: false
+    text_to_speech:
+      enabled: false
+      language: ''
+      voice: ''
+  graph:
+    edges:
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: start
+        targetType: tool
+      id: 1747026349214-source-1754361197781-target
+      source: '1747026349214'
+      sourceHandle: source
+      target: '1754361197781'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: tool
+        targetType: end
+      id: 1754361197781-source-1754361214742-target
+      source: '1754361197781'
+      sourceHandle: source
+      target: '1754361214742'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    nodes:
+    - data:
+        desc: 第一個工作流
+        selected: false
+        title: 開始
+        type: start
+        variables:
+        - label: input_string
+          max_length: 256
+          options: []
+          required: true
+          type: text-input
+          variable: input_string
+      height: 118
+      id: '1747026349214'
+      position:
+        x: 30
+        y: 259
+      positionAbsolute:
+        x: 30
+        y: 259
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        desc: ''
+        is_team_authorization: true
+        output_schema: null
+        paramSchemas:
+        - auto_generate: null
+          default: null
+          form: llm
+          human_description:
+            en_US: 要搜尋的文字
+            ja_JP: 要搜尋的文字
+            pt_BR: 要搜尋的文字
+            zh_Hans: 要搜尋的文字
+          label:
+            en_US: word
+            ja_JP: word
+            pt_BR: word
+            zh_Hans: word
+          llm_description: 要搜尋的文字
+          max: null
+          min: null
+          name: word
+          options: []
+          placeholder: null
+          precision: null
+          required: false
+          scope: null
+          template: null
+          type: string
+        - auto_generate: null
+          default: null
+          form: llm
+          human_description:
+            en_US: 要計數的字元
+            ja_JP: 要計數的字元
+            pt_BR: 要計數的字元
+            zh_Hans: 要計數的字元
+          label:
+            en_US: letter
+            ja_JP: letter
+            pt_BR: letter
+            zh_Hans: letter
+          llm_description: 要計數的字元
+          max: null
+          min: null
+          name: letter
+          options: []
+          placeholder: null
+          precision: null
+          required: false
+          scope: null
+          template: null
+          type: string
+        params:
+          letter: ''
+          word: ''
+        provider_id: dayi1234
+        provider_name: gradio_MCP1
+        provider_type: mcp
+        selected: false
+        title: MCP_1_letter_counter
+        tool_configurations: {}
+        tool_description: '計算 letter 在 word 中出現的次數。. Returns: 出現次數'
+        tool_label: MCP_1_letter_counter
+        tool_name: MCP_1_letter_counter
+        tool_node_version: '2'
+        tool_parameters:
+          letter:
+            type: mixed
+            value: h
+          word:
+            type: mixed
+            value: '{{#1747026349214.input_string#}}'
+        type: tool
+      height: 86
+      id: '1754361197781'
+      position:
+        x: 334
+        y: 259
+      positionAbsolute:
+        x: 334
+        y: 259
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        desc: ''
+        outputs:
+        - value_selector:
+          - '1754361197781'
+          - text
+          value_type: string
+          variable: text
+        selected: false
+        title: 結束
+        type: end
+      height: 90
+      id: '1754361214742'
+      position:
+        x: 638
+        y: 259
+      positionAbsolute:
+        x: 638
+        y: 259
+      selected: true
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    viewport:
+      x: 129.53756103589365
+      y: -42.48055316252453
+      zoom: 1.0610015965572788
